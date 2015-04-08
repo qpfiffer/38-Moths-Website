@@ -1,4 +1,26 @@
+html {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
 body {
-    background-image: url('/static/img/bg.png');
-    background-repeat: repeat;
+}
+a {
+}
+a:visited {
+}
+header {
+    padding-bottom: 1.5em;
+}
+header .pull-right {
+    text-align: right;
+}
+header ul {
+    list-style: none;
+}
+header ul li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+#main-container {
 }
