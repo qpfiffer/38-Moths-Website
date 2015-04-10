@@ -8,10 +8,19 @@ a {
 }
 a:visited {
 }
+#lightbulb-canvas {
+    position: absolute;
+    display: inline;
+    width: 100%;
+    height: 500px;
+    z-index: -10;
+}
 #lander {
-    padding-top: 150px;
     padding-bottom: 150px;
-    background-color: #696060;
+    height: 500px;
+}
+#lander .content {
+    padding-top: 150px;
 }
 pre {
     font-size: 14px;
