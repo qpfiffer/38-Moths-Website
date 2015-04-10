@@ -1,37 +1,101 @@
+<!-- vim: set ts=4 sw=4 noet :
+-->
 xXx PARENT=templates/base.html xXx
 xXx TITLE xXx
-    Home
+	Home
 xXx TTYL xXx
 xXx CONTENT xXx
-<div class="grid grid-pad">
-    <div class="col-12-12">
-        <div class="content">
-            <p> Stuff here. </p>
-        </div>
-    </div>
+<div id="lander" class="grid grid-pad">
+	<div class="col-1-2">
+		<div class="content">
+			<p>Nope.</p>
+		</div>
+	</div>
+	<div class="col-1-2">
+		<div class="content">
+			<h3>A C micro web-framework.</h3>
+			<p>The fastest way to throw 502s ever!</p>
+		</div>
+	</div>
 </div>
 <div class="main-container">
-    <div class="grid grid-pad">
-        <div class="col-12-12">
-            <div class="content">
-                <p>
-                Split your lungs with blood and thunder
-                When you see the white whale
-                </p>
-                <p>
-                Break your backs and crack your oars, men
-                If you wish to prevail
-                </p>
-                <p>
-                This ivory leg is what propels me
-                Harpoons thrust in the sky
-                </p>
-                <p>
-                Aim directly for his crooked brow
-                And look him straight in the eye
-                </p>
-            </div>
-        </div>
-    </div>
+	<div class="grid grid-pad">
+		<div class="col-1-2">
+			<div class="content">
+				<div class="highlight"><pre><span class="cp">#include &lt;string.h&gt;</span>
+<span class="cp">#include &lt;38-moths/38-moths.h&gt;</span>
+
+<span class="k">static</span> <span class="kt">int</span>
+<span class="nf">index_handler</span><span class="p">(</span><span class="k">const</span> <span class="n">http_request</span> <span class="o">*</span><span class="n">req</span><span class="p">,</span> <span class="n">http_response</span> <span class="o">*</span><span class="n">resp</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">resp</span><span class="o">-&gt;</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+	<span class="n">memcpy</span><span class="p">(</span><span class="n">resp</span><span class="o">-&gt;</span><span class="n">out</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">));</span>
+
+	<span class="n">resp</span><span class="o">-&gt;</span><span class="n">outsize</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">200</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">main_sock_fd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+	<span class="k">static</span> <span class="k">const</span> <span class="n">route</span> <span class="n">all_routes</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+		<span class="p">{</span><span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="s">&quot;root_handler&quot;</span><span class="p">,</span> <span class="s">&quot;^/$&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+		 <span class="o">&amp;</span><span class="n">index_handler</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">heap_cleanup</span><span class="p">},</span>
+	<span class="p">};</span>
+
+	<span class="n">http_serve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">main_sock_fd</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">all_routes</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+					</pre>
+				</div>
+			</div>
+		</div>
+		<div class="col-1-2">
+			<div class="content">
+				<p>
+				Split your lungs with blood and thunder
+				When you see the white whale
+				</p>
+				<p>
+				Break your backs and crack your oars, men
+				If you wish to prevail
+				</p>
+				<p>
+				This ivory leg is what propels me
+				Harpoons thrust in the sky
+				</p>
+				<p>
+				Aim directly for his crooked brow
+				And look him straight in the eye
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="grid grid-pad">
+		<div class="col-1-2">
+			<div class="content">
+				<p>
+				Split your lungs with blood and thunder
+				When you see the white whale
+				</p>
+				<p>
+				Break your backs and crack your oars, men
+				If you wish to prevail
+				</p>
+				<p>
+				This ivory leg is what propels me
+				Harpoons thrust in the sky
+				</p>
+				<p>
+				Aim directly for his crooked brow
+				And look him straight in the eye
+				</p>
+			</div>
+		</div>
+		<div class="col-1-2">
+			<div class="content">
+			</div>
+		</div>
+	</div>
 </div>
 xXx TTYL xXx
