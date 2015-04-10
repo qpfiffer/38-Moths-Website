@@ -9,8 +9,9 @@ a {
 a:visited {
 }
 #lander {
-    padding-top: 125px;
-    padding-bottom: 125px;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    background-color: #696060;
 }
 pre {
     font-size: 14px;
@@ -18,13 +19,16 @@ pre {
 header {
     padding-bottom: 1.5em;
 }
-header .pull-right {
+.pull-right {
     text-align: right;
 }
-header ul {
+footer {
+    font-size: 14px;
+}
+header ul, footer ul {
     list-style: none;
 }
-header ul li {
+header ul li, footer ul li {
     display: inline-block;
     vertical-align: middle;
     margin-left: 1em;
