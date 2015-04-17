@@ -7,3 +7,11 @@ git submodule update
 ./build.py
 # Now just scp built/ somewhere.
 ````
+
+If you want to test locally:
+
+```
+cd ./built
+ln -s ../static
+python2 -m SimpleHTTPServer
+```
