@@ -26,18 +26,14 @@ if ( webglAvailable() ) {
 renderer.setSize( canvas.width, canvas.height );
 renderer.setClearColor( 0 );
 
+// Scene
+var scene = new THREE.Scene();
+
 // Camera
 camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 100000 );
 camera.position.x = 1200;
 camera.position.y = 1000;
-camera.lookAt({
-  x: 0,
-  y: 0,
-  z: 0
-});
-
-// Scene
-var scene = new THREE.Scene();
+camera.lookAt(scene.position);
 
 // Lightbulb
 var light = new THREE.PointLight( 0xdfebff, 1.75 );
@@ -82,12 +78,6 @@ function render() {
 render();
 
 function update() {
-
-    var timer = Date.now() * 0.0002;
-    camera.position.x = Math.cos(timer) * 1000;
-    camera.position.z = Math.sin(timer) * 1000;
-    camera.lookAt(scene.position);
-
     moth1.update();
     moth2.update();
 }
