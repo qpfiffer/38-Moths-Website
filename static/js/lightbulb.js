@@ -1,3 +1,5 @@
+// http://park.org/Canada/Museum/insects/evolution/navigation.html
+
 // Setup
 var renderer = null;
 var canvas = document.getElementById("lightbulb-canvas");
