@@ -70,7 +70,8 @@ Moth.prototype.update = function() {
     this.velocity.normalize();
 }
 
-var moth = new Moth();
+var moth1 = new Moth();
+var moth2 = new Moth();
 
 // Update & Render
 function render() {
@@ -87,7 +88,8 @@ function update() {
     camera.position.z = Math.sin(timer) * 1000;
     camera.lookAt(scene.position);
 
-    moth.update();
+    moth1.update();
+    moth2.update();
 }
 
 window.addEventListener( 'resize', onWindowResize, false );
