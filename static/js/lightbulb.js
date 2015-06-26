@@ -94,3 +94,4 @@ function onWindowResize(){
 
     renderer.setSize( canvas.width, canvas.height );
 }
+onWindowResize();
