@@ -45,6 +45,15 @@ light.position.set( 0, 0, 0 );
 light.castShadow = true;
 scene.add( light );
 
+// Super simple glow effect
+var spriteMaterial = new THREE.SpriteMaterial( {
+    map: new THREE.ImageUtils.loadTexture( '/static/img/glow.png' ),
+    color: 0xffffff, transparent: false, blending: THREE.AdditiveBlending
+});
+var glow = new THREE.Sprite( spriteMaterial );
+glow.scale.set(200, 200, 1.0);
+scene.add(glow);
+
 // Moths
 var Moth = function() {
     var geometry = new THREE.BoxGeometry( 10, 10, 10 );
