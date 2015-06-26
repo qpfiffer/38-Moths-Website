@@ -37,18 +37,24 @@ camera.lookAt(scene.position);
 
 // Lightbulb
 var light = new THREE.PointLight( 0xdfebff, 1.75 );
-light.position.set( 0, 0, 0 );
+light.position.set( 0, 50, 0 );
 light.castShadow = true;
 scene.add( light );
 
-// Super simple glow effect
-var spriteMaterial = new THREE.SpriteMaterial( {
-    map: new THREE.ImageUtils.loadTexture( '/static/img/glow.png' ),
-    color: 0xffffff, transparent: false, blending: THREE.AdditiveBlending
+var loader = new THREE.ObjectLoader();
+loader.load('/static/obj/lightbulb.json', function (obj) {
+    obj.scale.set(10,10,10);
+    scene.add(obj);
 });
-var glow = new THREE.Sprite( spriteMaterial );
-glow.scale.set(200, 200, 1.0);
-scene.add(glow);
+
+// Super simple glow effect
+//var spriteMaterial = new THREE.SpriteMaterial( {
+//    map: new THREE.ImageUtils.loadTexture( '/static/img/glow.png' ),
+//    color: 0xffffff, transparent: false, blending: THREE.AdditiveBlending
+//});
+//var glow = new THREE.Sprite( spriteMaterial );
+//glow.scale.set(200, 200, 1.0);
+//scene.add(glow);
 
 // Moths
 var Moth = function() {
