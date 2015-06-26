@@ -47,14 +47,14 @@ cube.castShadow = true;
 cube.position.x = 0;
 cube.position.y = 100;
 cube.position.z = 0;
-scene.add( cube );
+//scene.add( cube );
 
 var geometry = new THREE.PlaneGeometry( 500, 500 );
 var material = new THREE.MeshPhongMaterial({ color: 0x6C6C6C });
 var ground = new THREE.Mesh( geometry, material );
 ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
-scene.add( ground );
+//scene.add( ground );
 
 // Lights
 scene.add(new THREE.AmbientLight(0));
@@ -79,6 +79,26 @@ light.shadowDarkness = 0.2;
 
 scene.add( light );
 
+// Moths
+var Moth = function() {
+    var geometry = new THREE.BoxGeometry( 10, 10, 10 );
+    var material = new THREE.MeshLambertMaterial( { color: 0x0aeedf } );
+    this.object = new THREE.Mesh( geometry, material );
+    this.object.x = 0;
+    this.object.y = 100;
+    this.object.z = 0;
+    this.velocity = new THREE.Vector3(1, 1, 1);
+    scene.add(this.object);
+}
+
+Moth.prototype.update = function() {
+    this.object.position.add(this.velocity);
+    this.velocity.add(new THREE.Vector3(-Math.random() + 0.5, -Math.random() + 0.5, -Math.random() + 0.5));
+    this.velocity.normalize();
+}
+
+var moth = new Moth();
+
 // Update & Render
 function render() {
     update();
@@ -88,13 +108,15 @@ function render() {
 render();
 
 function update() {
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.02;
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.02;
 
-  var timer = Date.now() * 0.0002;
-  camera.position.x = Math.cos(timer) * 1000;
-  camera.position.z = Math.sin(timer) * 1000;
-  camera.lookAt(scene.position);
+    var timer = Date.now() * 0.0002;
+    camera.position.x = Math.cos(timer) * 1000;
+    camera.position.z = Math.sin(timer) * 1000;
+    camera.lookAt(scene.position);
+
+    moth.update();
 }
 
 window.addEventListener( 'resize', onWindowResize, false );
