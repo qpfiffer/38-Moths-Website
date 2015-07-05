@@ -102,5 +102,18 @@ header ul li, footer ul li {
 }
 
 #feature_table td.green {
-    background-color: #a0ffa0;
+    background-color: #A0FFA0;
+}
+
+#feature_table td.red {
+    background-color: #FF9090;
+}
+
+#feature_table td.yellow {
+    background-color: #FFFF80;
+}
+
+.caveat {
+    font-weight: normal;
+    font-size: 12px;
 }

@@ -9,7 +9,7 @@ xXx CONTENT xXx
 	<div class="grid grid-pad">
 		<div class="col-12-12">
 			xXx RAW_IMA_GIVE_IT_TO_YA xXx
-			<p>GRESHUNKEL is a templating language. And a static site generator. It's actually three different templating languages. It's complicated. Here, just have this table comparing the features of each implementation:</p>
+			<p>GRESHUNKEL is a templating language. And a static site generator. It's actually three different templating languages. I guess technically theres a fourth version as well which we use <a href="https://github.com/infoforcefeed/OlegDB/blob/master/include/oleg.h">for docstring generation.</a>It's complicated. Here, just have this table comparing the features of each implementation:</p>
 			<table id="feature_table">
 				<tr>
 					<th></th>
@@ -20,21 +20,60 @@ xXx CONTENT xXx
 
 				<tr>
 					<td>Variable Interpolation</td>
-					<td class="green"><code>xXx @VARIABLE_NAME xXx</code><a href="#caveat1" class="caveat1">*</a></td>
-					<td class="green"><code>xXx VARIABLE_NAME xXx</code><a href="#caveat2" class="caveat2">**</a></td>
+					<td class="yellow"><code>xXx @VARIABLE_NAME xXx</code><a href="#caveat1" class="caveat">*</a></td>
+					<td class="yellow"><code>xXx VARIABLE_NAME xXx</code><a href="#caveat2" class="caveat">**</a></td>
 					<td class="green"><code>xXx @VARIABLE_NAME xXx</code></td>
 				</tr>
 
 				<tr>
+					<td>Arrays/Loops</td>
+					<td class="yellow"><code><pre>xXx LOOP i items xXx ... xXx BBL xXx</pre></code><a href="#caveat3" class="caveat">***</a></td>
+					<td class="red"></td>
+					<td class="yellow"><code><pre>xXx LOOP i items xXx ... xXx BBL xXx</pre></code><a href="#caveat5" class="caveat">*****</a></td>
 				</tr>
 
 				<tr>
+					<td>Filter Functions</td>
+					<td class="red"></td>
+					<td class="green"><code>yYy filter_function ... yYy</code></td>
+					<td class="yellow"><code>XxX filter_func ... XxX</code><a href="#caveat4" class="caveat">****</a></td>
+				</tr>
+
+				<tr>
+					<td>Template Inheritance</td>
+					<td class="green"><code>xXx PARENT=templates/base.html xXx</code></td>
+					<td class="red"></td>
+					<td class="red"></td>
+				</tr>
+
+				<tr>
+					<td>Blocks</td>
+					<td class="green"><code><pre>xXx BLOCK_NAME xXx ... xXx TTYL xXx</code></td>
+					<td class="red"></td>
+					<td class="red"></td>
+				</tr>
+
+				<tr>
+					<td>Partial templates (inclusion)</td>
+					<td class="red"></td>
+					<td class="red"></td>
+					<td class="red">Planned.</td>
+				</tr>
+
+				<tr>
+					<td>Sub-objects (Dictionaries)</td>
+					<td class="red"></td>
+					<td class="red"></td>
+					<td class="green"><code>xXx @sub_object.name xXx</code></td>
 				</tr>
 			</table>
 			<p>Caveats:
 				<ul>
-					<li><a id="caveat1" class="caveat1">*</a>: Variables are interpolated differently inside of loops. I don't remember how at the moment, but they are.</li>
-					<li><a id="caveat2" class="caveat2">**</a>: If a variable doesn't exist in this variant, the whole line is not rendered. This is <a href="http://not-important.shithouse.tv/">important.</a></li>
+					<li><a id="caveat1" class="caveat">*</a> Variables are interpolated differently inside of loops. I don't remember how at the moment, but they are.</li>
+					<li><a id="caveat2" class="caveat">**</a> If a variable doesn't exist in this variant, the whole line is not rendered. This is <a href="http://not-important.shithouse.tv/">important.</a></li>
+					<li><a id="caveat3" class="caveat">***</a> Loops do a bunch of weird stuff to syntax. Sometimes things will work, and sometimes they won't. It's a chance to experiment!</li>
+					<li><a id="caveat4" class="caveat">****</a> Notice that the Xs are alternated here, not to be confused with variable interpolation.</li>
+					<li><a id="caveat5" class="caveat">*****</a> I don't think you can do loops inside of loops in this version. I don't remember.</li>
 				</ul>
 			</p>
 			xXx LESS_RAW xXx
