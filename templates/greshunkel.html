@@ -1,0 +1,44 @@
+<!-- vim: set ts=4 sw=4 noet :
+-->
+xXx PARENT=templates/base.html xXx
+xXx TITLE xXx
+	Greshunkel
+xXx TTYL xXx
+xXx CONTENT xXx
+<div class="main-container">
+	<div class="grid grid-pad">
+		<div class="col-12-12">
+			xXx RAW_IMA_GIVE_IT_TO_YA xXx
+			<p>GRESHUNKEL is a templating language. And a static site generator. It's actually three different templating languages. It's complicated. Here, just have this table comparing the features of each implementation:</p>
+			<table id="feature_table">
+				<tr>
+					<th></th>
+					<th>Static Site Generator (Python)</th>
+					<th><a href="https://github.com/qpfiffer/shithouse.tv">shithouse.tv</a> variant (Lua)</th>
+					<th><a href="https://github.com/qpfiffer/38-Moths/blob/master/include/greshunkel.h">38-Moths</a> Official (C)</th>
+				</tr>
+
+				<tr>
+					<td>Variable Interpolation</td>
+					<td class="green"><code>xXx @VARIABLE_NAME xXx</code><a href="#caveat1" class="caveat1">*</a></td>
+					<td class="green"><code>xXx VARIABLE_NAME xXx</code><a href="#caveat2" class="caveat2">**</a></td>
+					<td class="green"><code>xXx @VARIABLE_NAME xXx</code></td>
+				</tr>
+
+				<tr>
+				</tr>
+
+				<tr>
+				</tr>
+			</table>
+			<p>Caveats:
+				<ul>
+					<li><a id="caveat1" class="caveat1">*</a>: Variables are interpolated differently inside of loops. I don't remember how at the moment, but they are.</li>
+					<li><a id="caveat2" class="caveat2">**</a>: If a variable doesn't exist in this variant, the whole line is not rendered. This is <a href="http://not-important.shithouse.tv/">important.</a></li>
+				</ul>
+			</p>
+			xXx LESS_RAW xXx
+		</div>
+	</div>
+</div>
+xXx TTYL xXx

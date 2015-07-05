@@ -12,7 +12,10 @@ BUILD_DIR = "built/"
 DOCUMENTATION_FILE = "documentation.html"
 DOCUMENTATION_TEMPLATE = TEMPLATE_DIR + DOCUMENTATION_FILE
 
+raw = False
+
 def _render_file(file_yo, context, output_filename=None):
+    global raw
     if file_yo.get("children"):
         # We DoNt ReNdEr FiLeS wItH cHiLdReN
         for base_file in file_yo["children"]:
@@ -30,7 +33,15 @@ def _render_file(file_yo, context, output_filename=None):
         if parent_file:
             for line in parent_file:
                 to_write = line
-                if 'xXx' in line:
+                stripped = line.strip()
+                if "xXx RAW_IMA_GIVE_IT_TO_YA xXx" == stripped:
+                    import ipdb; ipdb.set_trace()
+                    raw = True
+                    to_write = ""
+                elif "xXx LESS_RAW xXx" == stripped:
+                    raw = False
+                    to_write = ""
+                elif 'xXx' in line and raw is False:
                     if '@' in line:
                         to_write = interpolate(line.replace("@", ""), {}, context)
                     elif '=' in line:
@@ -47,7 +58,7 @@ def _render_file(file_yo, context, output_filename=None):
         else:
             for line in in_file:
                 to_write = line
-                if 'xXx' in line:
+                if 'xXx' in line and raw is False:
                     to_write = interpolate(line, file_yo, context)
 
                 output.write(to_write)
@@ -122,6 +133,7 @@ def _render_loop(loop_obj, context):
     return temp_loop_str
 
 def parse_file(context, radical_file):
+    global raw
     tfile = open(TEMPLATE_DIR + radical_file, "r")
     file_meta = {}
     file_meta['file'] = TEMPLATE_DIR + radical_file
@@ -139,17 +151,21 @@ def parse_file(context, radical_file):
     active_loops = 0
     for line in tfile:
         stripped = line.strip()
-        if "xXx" in stripped and "=" in stripped.split("xXx")[1]:
+        if "xXx" in stripped and "=" in stripped.split("xXx")[1] and raw is False:
             var = parse_variable(line)
             file_meta['vars'][var[0]] = var[1]
-        elif "xXx TTYL xXx" == stripped:
+        elif "xXx TTYL xXx" == stripped and raw is False:
             file_meta['blocks'][block_name] = block_str + end_str
             reading_block = False
             block_str = ""
             block_name = ""
             end_str = ""
+        elif "xXx RAW_IMA_GIVE_IT_TO_YA xXx" == stripped and raw is False:
+            raw = True
+        elif "xXx LESS_RAW xXx" == stripped and raw is True:
+            raw = False
         # We LoOpIn BaBy
-        elif "xXx LOOP " in stripped:
+        elif "xXx LOOP " in stripped and raw is False:
             variables = stripped.split("xXx")[1].strip().replace("LOOP ", "").split(" ")
             active_loops = active_loops + 1
             print "We've entered timeskip {}!".format(variables[1])
@@ -176,7 +192,7 @@ def parse_file(context, radical_file):
                         recurse_bro(item["loop_subloop"])
                 recurse_bro(loop_stack)
 
-        elif "xXx BBL xXx" == stripped:
+        elif "xXx BBL xXx" == stripped and raw is False:
             active_loops = active_loops - 1
             if active_loops == 0:
                 temp_loop_str = _render_loop(loop_stack, context)
@@ -184,17 +200,20 @@ def parse_file(context, radical_file):
                 block_str = block_str + temp_loop_str
                 # wE DoNe LoOpIn NoW
                 loop_stack = None
-        elif "xXx" in stripped and reading_block is True:
+        elif "xXx" in stripped and reading_block is True and raw is False:
             if '@' in stripped:
                 line = stripped = interpolate(stripped.replace("@", ""), {}, context)
-        elif "xXx" in stripped and reading_block is False:
+        elif "xXx" in stripped and reading_block is False and raw is False:
             reading_block = True
             lstripped = line.split("xXx")
             block_name = lstripped[1].strip()
             block_str = lstripped[0]
             end_str = lstripped[2]
-        if active_loops == 0 and reading_block is True and "xXx" not in stripped:
-            block_str = block_str + line
+
+        if active_loops == 0 and reading_block is True and ("xXx" not in stripped or raw is True):
+            if stripped != "xXx RAW_IMA_GIVE_IT_TO_YA xXx":
+                block_str = block_str + line
+
         if active_loops > 0:
             def recurse_bro(item):
                 if item is not None:

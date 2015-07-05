@@ -79,3 +79,28 @@ header ul li, footer ul li {
 .highlight .sr { font-style: italic } /* Literal.String.Regex */
 .highlight .s1 { font-style: italic } /* Literal.String.Single */
 .highlight .ss { font-style: italic } /* Literal.String.Symbol */
+
+#feature_table code {
+    font-size: 14px;
+}
+
+#feature_table tr {
+    border: solid 1px #FFF;
+}
+
+#feature_table tr td {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+    width: 275px;
+}
+
+#feature_table tr td:first-child {
+    font-weight: normal;
+}
+
+#feature_table td.green {
+    background-color: #a0ffa0;
+}
