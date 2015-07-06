@@ -117,3 +117,8 @@ header ul li, footer ul li {
     font-weight: normal;
     font-size: 12px;
 }
+
+.caveat:target {
+    color: red;
+    text-decoration: underline;
+}

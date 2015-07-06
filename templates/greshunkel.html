@@ -57,14 +57,35 @@ xXx CONTENT xXx
 					<td>Partial templates (inclusion)</td>
 					<td class="red"></td>
 					<td class="red"></td>
-					<td class="red">Planned.</td>
+					<td class="yellow">Planned.</td>
 				</tr>
 
 				<tr>
 					<td>Sub-objects (Dictionaries)</td>
-					<td class="red"></td>
+					<td class="green"><code>xXx sub_object$name xXx</code></td>
 					<td class="red"></td>
 					<td class="green"><code>xXx @sub_object.name xXx</code></td>
+				</tr>
+
+				<tr>
+					<td>Array Indexing</td>
+					<td class="green"><code>xXx sub_object$0 xXx</code></td>
+					<td class="red"></td>
+					<td class="red"></td>
+				</tr>
+
+				<tr>
+					<td>Looping through sub-objects</td>
+					<td class="yellow"><code><pre>xXx LOOP param sub_object$params xXx</pre></code><a href="#caveat6" class="caveat">******</a></td>
+					<td class="red"></td>
+					<td class="red"></td>
+				</tr>
+
+				<tr>
+					<td>"Unless" operator</td>
+					<td class="red"></td>
+					<td class="green"><code><pre>yYy unless [not] MUSIC_SRC yYy</pre></code></td>
+					<td class="yellow">Planned.</td>
 				</tr>
 			</table>
 			<p>Caveats:
@@ -74,6 +95,7 @@ xXx CONTENT xXx
 					<li><a id="caveat3" class="caveat">***</a> Loops do a bunch of weird stuff to syntax. Sometimes things will work, and sometimes they won't. It's a chance to experiment!</li>
 					<li><a id="caveat4" class="caveat">****</a> Notice that the Xs are alternated here, not to be confused with variable interpolation.</li>
 					<li><a id="caveat5" class="caveat">*****</a> I don't think you can do loops inside of loops in this version. I don't remember.</li>
+					<li><a id="caveat6" class="caveat">******</a> This only works if the name of the variable you're looping through on the sub-object is called 'params'.</li>
 				</ul>
 			</p>
 			xXx LESS_RAW xXx
