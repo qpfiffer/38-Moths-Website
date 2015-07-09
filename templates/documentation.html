@@ -1,0 +1,132 @@
+<!-- vim: set ts=4 sw=4 noet :
+-->
+xXx PARENT=templates/base.html xXx
+xXx TITLE xXx
+	Documentation
+xXx TTYL xXx
+xXx SCRIPTS xXx
+<!-- <link rel="stylesheet" href="/static/css/prism.css"/> -->
+xXx TTYL xXx
+xXx CONTENT xXx
+<div class="main-container">
+	<div class="grid grid-pad">
+		<div class="col-3-12">
+			<div class="content">
+				<h1>Overview</h1>
+				<ul>
+					<li><strong>TODO</strong></li>
+				</ul>
+
+				<h1>38-Moths</h1>
+				<ul>
+					<li>
+						<a href="#macros">Macros</a>
+						<ul>
+							xXx LOOP macro DEFINE xXx
+							<li><a href="#xXx macro$name xXx">xXx macro$name xXx</a></li>
+							xXx BBL xXx
+						</ul>
+					</li>
+					<li>
+						<a href="#typedefs">Type Definitions</a>
+						<ul>
+						<!--
+						xXx RAW_IMA_GIVE_IT_TO_YA xXx
+						xXx LOOP type TYPEDEF xXx
+							<li><a href="#xXx type$name xXx">xXx type$name xXx</a></li>
+						xXx BBL xXx
+						xXx LESS_RAW xXx
+						-->
+						</ul>
+					</li>
+					<li>
+						<a href="#enums">Enums</a>
+						<ul>
+						xXx LOOP enum ENUM xXx
+							<li><a href="#xXx enum$name xXx">xXx enum$name xXx</a></li>
+						xXx BBL xXx
+						</ul>
+					</li>
+					<li>
+						<a href="#structures">Structures</a>
+						<ul>
+						xXx LOOP struct STRUCT xXx
+							<li><a href="#xXx struct$name xXx">xXx struct$name xXx</a></li>
+						xXx BBL xXx
+						</ul>
+					</li>
+					<li>
+						<a href="#functions">Functions</a>
+						<ul>
+						xXx LOOP func FUNCTION xXx
+							<li><a href="#xXx func$name xXx">xXx func$name xXx</a></li>
+						xXx BBL xXx
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-9-12">
+			<h1>38-Moths</h1>
+
+			<div class="language-c doc_chunk">
+				<h2 class="perma" id="macros">Macros <a href="#macros">&para;</a></h2>
+				xXx LOOP macro DEFINE xXx
+				<h3 class="perma" id="xXx macro$name xXx">xXx macro$name xXx <a href="#xXx macro$name xXx">&para;</a></h3>
+				<pre><code>xXx macro$raw_code xXx</code></pre>
+				<p>xXx macro$DESCRIPTION xXx</p>
+				xXx BBL xXx
+			</div>
+			<div class="language-c doc_chunk">
+				<h2 class="perma" id="typedefs">Type Definitions <a href="#typedefs">&para;</a></h2>
+				<!--
+		xXx RAW_IMA_GIVE_IT_TO_YA xXx
+		xXx LOOP type TYPEDEF xXx
+		<h3 class="perma" id="xXx type$name xXx">xXx type$name xXx <a href="#xXx type$name xXx">&para;</a></h3>
+		<pre><code>xXx type$raw_code xXx</code></pre>
+		<p>xXx type$DESCRIPTION xXx</p>
+		xXx LOOP param type$params xXx
+		<p><span class="bold">xXx param$0 xXx:</span> xXx param$1 xXx</p>
+		xXx BBL xXx
+		xXx BBL xXx
+		xXx LESS_RAW xXx
+		-->
+			</div>
+			<div class="language-c doc_chunk">
+				<h2 class="perma" id="enums">Enums <a href="#enums">&para;</a></h2>
+				xXx LOOP enum ENUM xXx
+				<h3 class="perma" id="xXx enum$name xXx">xXx enum$name xXx <a href="#xXx enum$name xXx">&para;</a></h3>
+				<pre><code>xXx enum$raw_code xXx</code></pre>
+				<p>xXx enum$DESCRIPTION xXx</p>
+				xXx LOOP param enum$params xXx
+				<p><span class="bold">xXx param$0 xXx:</span> xXx param$1 xXx</p>
+				xXx BBL xXx
+				xXx BBL xXx
+			</div>
+			<div class="language-c doc_chunk">
+				<h2 class="perma" id="structures">Structures <a href="#structures">&para;</a></h2>
+				xXx LOOP struct STRUCT xXx
+				<h3 class="perma" id="xXx struct$name xXx">xXx struct$name xXx <a href="#xXx struct$name xXx">&para;</a></h3>
+				<pre><code>xXx struct$raw_code xXx</code></pre>
+				<p>xXx struct$DESCRIPTION xXx</p>
+				xXx LOOP param struct$params xXx
+				<p><span class="bold">xXx param$0 xXx:</span> xXx param$1 xXx</p>
+				xXx BBL xXx
+				xXx BBL xXx
+			</div>
+			<div class="language-c doc_chunk">
+				<h2 class="perma" id="functions">Functions <a href="#functions">&para;</a></h2>
+				xXx LOOP function FUNCTION xXx
+				<h3 class="perma" id="xXx function$name xXx">xXx function$name xXx <a href="#xXx function$name xXx">&para;</a></h3>
+				<pre><code>xXx function$raw_code xXx</code></pre>
+				<p>xXx function$DESCRIPTION xXx</p>
+				xXx LOOP hark function$params xXx
+				<p><span class="bold">xXx hark$0 xXx:</span> xXx hark$1 xXx</p>
+				xXx BBL xXx
+				<p><span class="bold">Returns:</span> xXx function$RETURNS xXx</p>
+				xXx BBL xXx
+			</div>
+		</div>
+	</div>
+</div>
+xXx TTYL xXx
