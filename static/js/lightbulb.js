@@ -61,6 +61,14 @@ scene.add(glow);
 
 // Moths
 var Moth = function() {
+    this.create_mesh();
+    this.velocity = new THREE.Vector3(0, 0, 1);
+    this.left_wing.position.set(0, 0, 0);
+    this.right_wing.position.set(0, 0, 0);
+    this.body_vector = new THREE.Vector3(0, 1, 0);
+}
+
+Moth.prototype.create_mesh = function() {
     var geometry;
     var material;
 
@@ -161,11 +169,6 @@ var Moth = function() {
     material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
     this.right_wing = new THREE.Mesh( geometry, material );
     scene.add(this.right_wing);
-
-    this.velocity = new THREE.Vector3(0.1, 0.1, 0);
-    this.left_wing.position.set(0, 0, 0);
-    this.right_wing.position.set(0, 0, 0);
-    this.body_vector = new THREE.Vector3(0, 1, 0);
 }
 
 Moth.prototype.update = function() {
