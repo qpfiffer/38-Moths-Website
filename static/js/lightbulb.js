@@ -41,7 +41,7 @@ var candle = new THREE.Mesh( geometry, material );
 candle.position.add( new THREE.Vector3(0, -20, 0) );
 scene.add( candle );
 
-var light = new THREE.PointLight( 0xdfebff, 1.75 );
+var light = new THREE.PointLight( 0xdfebff, 1 );
 light.position.set( 0, 20, 0 );
 light.castShadow = true;
 scene.add( light );
@@ -61,8 +61,8 @@ scene.add(glow);
 
 // Moths
 var Moth = function() {
-    //var geometry = new THREE.BoxGeometry( 10, 10, 10 );
-    var geometry = new THREE.Geometry();
+    var geometry;
+    var material;
 
     var front_normal = new THREE.Vector3( 0, 0, 1 );
     var back_normal = new THREE.Vector3( 0, 0, -1 );
@@ -76,41 +76,26 @@ var Moth = function() {
     var bot_x =  4.2;
     var bot_y = -1.5;
 
+    // Left wing
+    geometry = new THREE.Geometry();
+
     // Front top left wing
-    v1 = new THREE.Vector3(-mid_x, mid_y, 0);
+    v1 = new THREE.Vector3(     0, hed_y, 0);
     v2 = new THREE.Vector3(-top_x, top_y, 0);
-    v3 = new THREE.Vector3(     0, hed_y, 0);
+    v3 = new THREE.Vector3(-mid_x, mid_y, 0);
     geometry.vertices.push(v1);
     geometry.vertices.push(v2);
     geometry.vertices.push(v3);
     geometry.faces.push( new THREE.Face3( 0, 1, 2, front_normal) );
 
     // Back top left wing
-    v1 = new THREE.Vector3(-mid_x, mid_y, 0.001);
-    v2 = new THREE.Vector3(-top_x, top_y, 0.001);
-    v3 = new THREE.Vector3(     0, hed_y, 0.001);
+    v1 = new THREE.Vector3(-mid_x, mid_y, 0.0001);
+    v2 = new THREE.Vector3(-top_x, top_y, 0.0001);
+    v3 = new THREE.Vector3(     0, hed_y, 0.0001);
     geometry.vertices.push(v1);
     geometry.vertices.push(v2);
     geometry.vertices.push(v3);
     geometry.faces.push( new THREE.Face3( 3, 4, 5, back_normal) );
-
-    // Front top right wing
-    v1 = new THREE.Vector3(mid_x, mid_y, 0);
-    v2 = new THREE.Vector3(top_x, top_y, 0);
-    v3 = new THREE.Vector3(    0, hed_y, 0);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 6, 7, 8, front_normal) );
-
-    // Back top right wing
-    v1 = new THREE.Vector3(mid_x,     0, 0.001);
-    v2 = new THREE.Vector3(top_x, top_y, 0.001);
-    v3 = new THREE.Vector3(    0, hed_y, 0.001);
-    geometry.vertices.push(v3);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v1);
-    geometry.faces.push( new THREE.Face3( 9, 10, 11, back_normal) );
 
     // Front bottom left wing
     v1 = new THREE.Vector3(     0, hed_y, 0);
@@ -119,48 +104,89 @@ var Moth = function() {
     geometry.vertices.push(v1);
     geometry.vertices.push(v2);
     geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 12, 13, 14, front_normal) );
+    geometry.faces.push( new THREE.Face3( 6, 7, 8, front_normal) );
 
     // Back bottom left wing
-    v1 = new THREE.Vector3(     0, hed_y, 0.001);
-    v2 = new THREE.Vector3(-bot_x, bot_y, 0.001);
-    v3 = new THREE.Vector3(     0,     0, 0.001);
-    geometry.vertices.push(v3);
-    geometry.vertices.push(v2);
+    v1 = new THREE.Vector3(     0,     0, 0.0001);
+    v2 = new THREE.Vector3(-bot_x, bot_y, 0.0001);
+    v3 = new THREE.Vector3(     0, hed_y, 0.0001);
     geometry.vertices.push(v1);
-    geometry.faces.push( new THREE.Face3( 15, 16, 17, back_normal) );
+    geometry.vertices.push(v2);
+    geometry.vertices.push(v3);
+    geometry.faces.push( new THREE.Face3( 9, 10, 11, back_normal) );
+
+    material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+    this.left_wing = new THREE.Mesh( geometry, material );
+    scene.add(this.left_wing);
+
+    // Right wing
+    geometry = new THREE.Geometry();
+
+    // Front top right wing
+    v1 = new THREE.Vector3(mid_x, mid_y, 0);
+    v2 = new THREE.Vector3(top_x, top_y, 0);
+    v3 = new THREE.Vector3(    0, hed_y, 0);
+    geometry.vertices.push(v1);
+    geometry.vertices.push(v2);
+    geometry.vertices.push(v3);
+    geometry.faces.push( new THREE.Face3( 0, 1, 2, front_normal) );
+
+    // Back top right wing
+    v1 = new THREE.Vector3(    0, hed_y, 0.0001);
+    v2 = new THREE.Vector3(top_x, top_y, 0.0001);
+    v3 = new THREE.Vector3(mid_x,     0, 0.0001);
+    geometry.vertices.push(v1);
+    geometry.vertices.push(v2);
+    geometry.vertices.push(v3);
+    geometry.faces.push( new THREE.Face3( 3, 4, 5, back_normal) );
 
     // Front bottom right wing
-    v1 = new THREE.Vector3(    0, hed_y, 0);
+    v1 = new THREE.Vector3(    0,     0, 0);
     v2 = new THREE.Vector3(bot_x, bot_y, 0);
-    v3 = new THREE.Vector3(    0,     0, 0);
-    geometry.vertices.push(v3);
-    geometry.vertices.push(v2);
+    v3 = new THREE.Vector3(    0, hed_y, 0);
     geometry.vertices.push(v1);
-    geometry.faces.push( new THREE.Face3( 18, 19, 20, front_normal) );
+    geometry.vertices.push(v2);
+    geometry.vertices.push(v3);
+    geometry.faces.push( new THREE.Face3( 6, 7, 8, front_normal) );
 
     // Back bottom right wing
-    v1 = new THREE.Vector3(    0, hed_y, 0.001);
-    v2 = new THREE.Vector3(bot_x, bot_y, 0.001);
-    v3 = new THREE.Vector3(    0,     0, 0.001);
+    v1 = new THREE.Vector3(    0, hed_y, 0.0001);
+    v2 = new THREE.Vector3(bot_x, bot_y, 0.0001);
+    v3 = new THREE.Vector3(    0,     0, 0.0001);
     geometry.vertices.push(v1);
     geometry.vertices.push(v2);
     geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 21, 22, 23, back_normal) );
+    geometry.faces.push( new THREE.Face3( 9, 10, 11, back_normal) );
 
-    var material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
-    material.side = THREE.DoubleSide;
+    material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+    this.right_wing = new THREE.Mesh( geometry, material );
+    scene.add(this.right_wing);
 
-    this.object = new THREE.Mesh( geometry, material );
-    scene.add(this.object);
-
-    this.velocity = new THREE.Vector3(0, 0, 0.2);
-    this.object.position.set(0, 0, 0);
+    this.velocity = new THREE.Vector3(0.1, 0.1, 0);
+    this.left_wing.position.set(0, 0, 0);
+    this.right_wing.position.set(0, 0, 0);
+    this.body_vector = new THREE.Vector3(0, 1, 0);
 }
 
 Moth.prototype.update = function() {
-    this.object.position.add(this.velocity);
-    this.velocity.add(new THREE.Vector3(-Math.random() + 0.5, -Math.random() + 0.5, -Math.random() + 0.5));
+    // move
+    this.left_wing.position.add(this.velocity);
+    this.right_wing.position.add(this.velocity);
+
+    // flap
+    rotObjectMatrix = new THREE.Matrix4();
+    rotObjectMatrix.makeRotationAxis(this.body_vector, 0.3);
+    this.left_wing.matrix.multiply(rotObjectMatrix);
+    this.left_wing.rotation.setFromRotationMatrix(this.left_wing.matrix);
+
+    rotObjectMatrix = new THREE.Matrix4();
+    rotObjectMatrix.makeRotationAxis(this.body_vector, -0.3);
+    this.right_wing.matrix.multiply(rotObjectMatrix);
+    this.right_wing.rotation.setFromRotationMatrix(this.right_wing.matrix);
+
+    // randomly change heading
+    var rand = function() { return -Math.random() + 0.5 };
+    this.velocity.add( new THREE.Vector3( rand(), rand(), rand() ) );
     this.velocity.normalize();
 }
 
