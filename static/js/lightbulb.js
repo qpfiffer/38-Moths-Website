@@ -63,112 +63,59 @@ scene.add(glow);
 var Moth = function() {
     this.create_mesh();
     this.velocity = new THREE.Vector3(0, 0, 1);
-    this.left_wing.position.set(0, 0, 0);
-    this.right_wing.position.set(0, 0, 0);
+    this.object.position.set(0, 0, 0);
     this.body_vector = new THREE.Vector3(0, 1, 0);
 }
 
 Moth.prototype.create_mesh = function() {
-    var geometry;
-    var material;
+    var geometry = new THREE.Geometry();
+    var material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
 
     var front_normal = new THREE.Vector3( 0, 0, 1 );
     var back_normal = new THREE.Vector3( 0, 0, -1 );
     var v1, v2, v3;
 
-    var hed_y =  4.5;
-    var top_x =  6.0;
-    var top_y =  5.5;
-    var mid_x =  2.3;
-    var mid_y =  1.2;
-    var bot_x =  4.2;
-    var bot_y = -1.5;
+    function v( x, y, z ) {
+        geometry.vertices.push( new THREE.Vector3( x, y, z ) );
+    }
 
-    // Left wing
-    geometry = new THREE.Geometry();
+    function f( a, b, c ) {
+        geometry.faces.push( new THREE.Face3( a, b, c ) );
+    }
 
-    // Front top left wing
-    v1 = new THREE.Vector3(     0, hed_y, 0);
-    v2 = new THREE.Vector3(-top_x, top_y, 0);
-    v3 = new THREE.Vector3(-mid_x, mid_y, 0);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 0, 1, 2, front_normal) );
+    v(  0.0,  1.5, -0.000001); var head_frn = 0;
+    v(  0.0,  1.5,  0.000001); var head_bak = 1;
+    v(  0.0, -1.5, -0.000001); var tail_frn = 2;
+    v(  0.0, -1.5,  0.000001); var tail_bak = 3;
+    v( -5.0,  3.0,  0.0);      var top_left = 4;
+    v( -4.0, -1.0,  0.0);      var mid_left = 5;
+    v( -4.5, -2.5,  0.0);      var bot_left = 6;
+    v(  5.0,  3.0,  0.0);      var top_rght = 7;
+    v(  4.0, -1.0,  0.0);      var mid_rght = 8;
+    v(  4.5, -2.5,  0.0);      var bot_rght = 9;
 
-    // Back top left wing
-    v1 = new THREE.Vector3(-mid_x, mid_y, 0.0001);
-    v2 = new THREE.Vector3(-top_x, top_y, 0.0001);
-    v3 = new THREE.Vector3(     0, hed_y, 0.0001);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 3, 4, 5, back_normal) );
+    // Back left wing
+    f( head_bak, top_left, mid_left );
+    f( head_bak, mid_left, tail_bak );
+    f( tail_bak, mid_left, bot_left );
 
-    // Front bottom left wing
-    v1 = new THREE.Vector3(     0, hed_y, 0);
-    v2 = new THREE.Vector3(-bot_x, bot_y, 0);
-    v3 = new THREE.Vector3(     0,     0, 0);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 6, 7, 8, front_normal) );
+    // Back right wing
+    f( head_bak, mid_rght, top_rght );
+    f( head_bak, tail_bak, mid_rght );
+    f( tail_bak, bot_rght, mid_rght );
 
-    // Back bottom left wing
-    v1 = new THREE.Vector3(     0,     0, 0.0001);
-    v2 = new THREE.Vector3(-bot_x, bot_y, 0.0001);
-    v3 = new THREE.Vector3(     0, hed_y, 0.0001);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 9, 10, 11, back_normal) );
+    // Front left wing
+    f( head_frn, top_left, mid_left );
+    f( head_frn, mid_left, tail_frn );
+    f( tail_frn, mid_left, bot_left );
 
-    material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
-    this.left_wing = new THREE.Mesh( geometry, material );
-    scene.add(this.left_wing);
+    // Front right wing
+    f( head_frn, top_rght, mid_rght );
+    f( head_frn, mid_rght, tail_frn );
+    f( tail_frn, mid_rght, bot_rght );
 
-    // Right wing
-    geometry = new THREE.Geometry();
-
-    // Front top right wing
-    v1 = new THREE.Vector3(mid_x, mid_y, 0);
-    v2 = new THREE.Vector3(top_x, top_y, 0);
-    v3 = new THREE.Vector3(    0, hed_y, 0);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 0, 1, 2, front_normal) );
-
-    // Back top right wing
-    v1 = new THREE.Vector3(    0, hed_y, 0.0001);
-    v2 = new THREE.Vector3(top_x, top_y, 0.0001);
-    v3 = new THREE.Vector3(mid_x,     0, 0.0001);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 3, 4, 5, back_normal) );
-
-    // Front bottom right wing
-    v1 = new THREE.Vector3(    0,     0, 0);
-    v2 = new THREE.Vector3(bot_x, bot_y, 0);
-    v3 = new THREE.Vector3(    0, hed_y, 0);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 6, 7, 8, front_normal) );
-
-    // Back bottom right wing
-    v1 = new THREE.Vector3(    0, hed_y, 0.0001);
-    v2 = new THREE.Vector3(bot_x, bot_y, 0.0001);
-    v3 = new THREE.Vector3(    0,     0, 0.0001);
-    geometry.vertices.push(v1);
-    geometry.vertices.push(v2);
-    geometry.vertices.push(v3);
-    geometry.faces.push( new THREE.Face3( 9, 10, 11, back_normal) );
-
-    material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
-    this.right_wing = new THREE.Mesh( geometry, material );
-    scene.add(this.right_wing);
+    this.object = new THREE.Mesh( geometry, material );
+    scene.add(this.object);
 }
 
 Moth.prototype.update = function() {
