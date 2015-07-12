@@ -190,8 +190,8 @@ Moth.prototype.update = function() {
     this.velocity.normalize();
 }
 
-var moth1 = new Moth();
-var moth2 = new Moth();
+var moths = [];
+for (var i = 0; i < 38; i++) { moths[i] = new Moth(); }
 
 // Update & Render
 function render() {
@@ -202,8 +202,7 @@ function render() {
 render();
 
 function update() {
-    moth1.update();
-    moth2.update();
+    for (var i in moths) { moths[i].update(); }
 }
 
 window.addEventListener( 'resize', onWindowResize, false );
