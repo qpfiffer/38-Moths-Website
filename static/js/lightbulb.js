@@ -63,26 +63,42 @@ scene.add(glow);
 var Moth = function() {
     this.create_mesh();
     this.velocity = new THREE.Vector3(0, 1, 0);
+    var rand = function() { return -Math.random() + 0.5 };
+    this.target_heading = new THREE.Vector3( rand(), rand(), rand() ).normalize();
     this.object.position.set(0, 0, 0);
-    this.body_vector = new THREE.Vector3(0, 1, 0);
     this.phase = Math.random();
-    this.flap_angle = 0;
+    this.flap_angle = Math.sin( Math.PI ) * ( Math.PI / 2 );
 }
 
 Moth.prototype.update = function() {
     // move
-    var ahead = new THREE.Vector3().copy(this.object.position);
-    ahead.add(this.velocity);
-    this.object.lookAt(ahead);
+    this.velocity.multiplyScalar(0.5);  // Set the "speed"
     this.object.position.add(this.velocity);
+    this.velocity.normalize();
 
     // flap
     this.flap();
 
-    // randomly change heading
-    var rand = function() { return -Math.random() + 0.5 };
-    this.velocity.add( new THREE.Vector3( rand(), rand(), rand() ) );
-    this.velocity.normalize();
+    // calculate turn angle to target heading
+    var rot_quat = new THREE.Quaternion();
+    var axis = new THREE.Vector3()
+    axis.crossVectors( this.velocity, this.target_heading );
+    rot_quat.setFromAxisAngle( axis, Math.PI / 20 );
+
+    // turn velocity
+    this.velocity.applyQuaternion( rot_quat );
+    this.velocity.normalize();  // keep vector normalized for quat math
+
+    // turn model
+    cur_quat = this.object.quaternion;
+    cur_quat.multiplyQuaternions( rot_quat, cur_quat );
+    cur_quat.normalize();
+    this.object.setRotationFromQuaternion(cur_quat);
+
+    // randomly change target heading
+    var rand = function() { return (-Math.random() + 0.5) / 2 };
+    this.target_heading.add( new THREE.Vector3( rand(), rand(), rand() ) );
+    this.target_heading.normalize();
 }
 
 
