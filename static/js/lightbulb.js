@@ -46,7 +46,7 @@ light.position.set( 0, 20, 0 );
 light.castShadow = true;
 scene.add( light );
 
-var ambi_light = new THREE.AmbientLight( 0x101010 ); // soft white light
+var ambi_light = new THREE.AmbientLight( 0x101010 );
 scene.add( ambi_light );
 
 // Super simple glow effect
@@ -65,7 +65,8 @@ var Moth = function() {
     this.velocity = new THREE.Vector3(0, 1, 0);
     this.object.position.set(0, 0, 0);
     this.body_vector = new THREE.Vector3(0, 1, 0);
-    this.phase = 0;
+    this.phase = Math.random();
+    this.flap_angle = 0;
 }
 
 Moth.prototype.update = function() {
@@ -84,18 +85,28 @@ Moth.prototype.update = function() {
 
 Moth.prototype.flap = function() {
 
+    var old_phase = this.phase;
+    var old_angle = this.flap_angle;
+
     this.phase = ( this.phase + 0.5 ) % ( Math.PI * 2 );
-    new_z = Math.sin( this.phase ) * 10;
+    this.flap_angle = Math.sin( this.phase ) * ( Math.PI / 2 );
+
+    var angle_delta = this.flap_angle - old_angle;
+
+    var left_quat = new THREE.Quaternion();
+    var rght_quat = new THREE.Quaternion();
+    left_quat.setFromAxisAngle( new THREE.Vector3( 0, 1, 0), -angle_delta)
+    rght_quat.setFromAxisAngle( new THREE.Vector3( 0, 1, 0),  angle_delta)
 
     var geom = this.object.geometry;
-    geom.dynamic = true;
 
     var verts = geom.vertices;
-    verts[ 4 ].z = new_z;  // top_left
-    verts[ 6 ].z = new_z;  // bot_left
-    verts[ 7 ].z = new_z;  // top_rght
-    verts[ 9 ].z = new_z;  // bot_rght
-
+    verts[ 4 ].applyQuaternion( left_quat );  // top_left
+    verts[ 5 ].applyQuaternion( left_quat );  // mid_left
+    verts[ 6 ].applyQuaternion( left_quat );  // bot_left
+    verts[ 7 ].applyQuaternion( rght_quat );  // top_rght
+    verts[ 8 ].applyQuaternion( rght_quat );  // mid_rght
+    verts[ 9 ].applyQuaternion( rght_quat );  // bot_rght
     geom.verticesNeedUpdate = true;
 }
 
@@ -147,6 +158,7 @@ Moth.prototype.create_mesh = function() {
     f( tail_frn, mid_rght, bot_rght );
 
     geometry.computeFaceNormals();
+    geometry.dynamic = true;  // allows flapping
     this.object = new THREE.Mesh( geometry, material );
     scene.add(this.object);
 }
