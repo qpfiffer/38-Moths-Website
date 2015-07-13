@@ -62,9 +62,41 @@ scene.add(glow);
 // Moths
 var Moth = function() {
     this.create_mesh();
-    this.velocity = new THREE.Vector3(0, 0, 1);
+    this.velocity = new THREE.Vector3(0, 1, 0);
     this.object.position.set(0, 0, 0);
     this.body_vector = new THREE.Vector3(0, 1, 0);
+    this.phase = 0;
+}
+
+Moth.prototype.update = function() {
+    // move
+    this.object.position.add(this.velocity);
+
+    // flap
+    this.flap();
+
+    // randomly change heading
+    var rand = function() { return -Math.random() + 0.5 };
+    this.velocity.add( new THREE.Vector3( rand(), rand(), rand() ) );
+    this.velocity.normalize();
+}
+
+
+Moth.prototype.flap = function() {
+
+    this.phase = ( this.phase + 0.5 ) % ( Math.PI * 2 );
+    new_z = Math.sin( this.phase ) * 10;
+
+    var geom = this.object.geometry;
+    geom.dynamic = true;
+
+    var verts = geom.vertices;
+    verts[ 4 ].z = new_z;  // top_left
+    verts[ 6 ].z = new_z;  // bot_left
+    verts[ 7 ].z = new_z;  // top_rght
+    verts[ 9 ].z = new_z;  // bot_rght
+
+    geom.verticesNeedUpdate = true;
 }
 
 Moth.prototype.create_mesh = function() {
@@ -114,30 +146,9 @@ Moth.prototype.create_mesh = function() {
     f( head_frn, mid_rght, tail_frn );
     f( tail_frn, mid_rght, bot_rght );
 
+    geometry.computeFaceNormals();
     this.object = new THREE.Mesh( geometry, material );
     scene.add(this.object);
-}
-
-Moth.prototype.update = function() {
-    // move
-    this.left_wing.position.add(this.velocity);
-    this.right_wing.position.add(this.velocity);
-
-    // flap
-    rotObjectMatrix = new THREE.Matrix4();
-    rotObjectMatrix.makeRotationAxis(this.body_vector, 0.3);
-    this.left_wing.matrix.multiply(rotObjectMatrix);
-    this.left_wing.rotation.setFromRotationMatrix(this.left_wing.matrix);
-
-    rotObjectMatrix = new THREE.Matrix4();
-    rotObjectMatrix.makeRotationAxis(this.body_vector, -0.3);
-    this.right_wing.matrix.multiply(rotObjectMatrix);
-    this.right_wing.rotation.setFromRotationMatrix(this.right_wing.matrix);
-
-    // randomly change heading
-    var rand = function() { return -Math.random() + 0.5 };
-    this.velocity.add( new THREE.Vector3( rand(), rand(), rand() ) );
-    this.velocity.normalize();
 }
 
 var moths = [];
