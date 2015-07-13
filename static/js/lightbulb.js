@@ -71,6 +71,9 @@ var Moth = function() {
 
 Moth.prototype.update = function() {
     // move
+    var ahead = new THREE.Vector3().copy(this.object.position);
+    ahead.add(this.velocity);
+    this.object.lookAt(ahead);
     this.object.position.add(this.velocity);
 
     // flap
