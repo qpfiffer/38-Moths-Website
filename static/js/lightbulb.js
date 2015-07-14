@@ -62,8 +62,8 @@ scene.add(glow);
 // Moths
 var Moth = function() {
     this.create_mesh();
-    this.velocity = new THREE.Vector3(0, 1, 0);
     var rand = function() { return -Math.random() + 0.5 };
+    this.velocity = new THREE.Vector3( rand(), rand(), rand() ).normalize();
     this.target_heading = new THREE.Vector3( rand(), rand(), rand() ).normalize();
     this.object.position.set(0, 0, 0);
     this.phase = Math.random();
