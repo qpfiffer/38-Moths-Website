@@ -47,6 +47,7 @@ light.castShadow = true;
 scene.add( light );
 
 var ambi_light = new THREE.AmbientLight( 0x101010 );
+var ambi_light = new THREE.AmbientLight( 0xffffff );
 scene.add( ambi_light );
 
 // Super simple glow effect
@@ -72,9 +73,9 @@ var Moth = function() {
 
 Moth.prototype.update = function() {
     // move
-    this.velocity.multiplyScalar(0.5);  // Set the "speed"
-    this.object.position.add(this.velocity);
     this.velocity.normalize();
+    this.velocity.multiplyScalar(1);  // Set the "speed"
+    this.object.position.add(this.velocity);
 
     // flap
     this.flap();
@@ -83,13 +84,12 @@ Moth.prototype.update = function() {
     var rot_quat = new THREE.Quaternion();
     var axis = new THREE.Vector3()
     axis.crossVectors( this.velocity, this.target_heading );
-    rot_quat.setFromAxisAngle( axis, Math.PI / 20 );
+    rot_quat.setFromAxisAngle( axis, 0.01 );
 
-    // turn velocity
+    // rotate velocity
     this.velocity.applyQuaternion( rot_quat );
-    this.velocity.normalize();  // keep vector normalized for quat math
 
-    // turn model
+    // rotate model
     cur_quat = this.object.quaternion;
     cur_quat.multiplyQuaternions( rot_quat, cur_quat );
     cur_quat.normalize();
@@ -99,15 +99,25 @@ Moth.prototype.update = function() {
     if ( distance > 85 ) {
       light_dir = new THREE.Vector3().subVectors( light.position, this.object.position );
       this.target_heading = light_dir;
+
     } else {
+      light_dir = new THREE.Vector3().subVectors( light.position, this.object.position );
+      angle = this.velocity.angleTo( light_dir );
+
+      // track light
+      if ( angle < (Math.PI / 2) && distance > 30 ) {
+        axis = new THREE.Vector3().crossVectors( this.velocity, light_dir );
+        rot_quat.setFromAxisAngle( axis, (Math.PI / 2) - angle );
+        this.target_heading.applyQuaternion( rot_quat );
+
       // randomly change target heading
-      var rand = function() { return (-Math.random() + 0.5) / 2 };
-      this.target_heading.add( new THREE.Vector3( rand(), rand(), rand() ) );
-      this.target_heading.normalize();
+      } else {
+        var rand = function() { return (-Math.random() + 0.5) / 2 };
+        this.target_heading.add( new THREE.Vector3( rand(), Math.abs(rand()), rand() ) );
+        this.target_heading.normalize();
+      }
     }
-
 }
-
 
 Moth.prototype.flap = function() {
 
