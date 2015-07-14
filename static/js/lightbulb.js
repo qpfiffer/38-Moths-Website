@@ -38,11 +38,11 @@ camera.lookAt(scene.position);
 var geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
 var material = new THREE.MeshLambertMaterial( {color: 0xffff00} );
 var candle = new THREE.Mesh( geometry, material );
-candle.position.add( new THREE.Vector3(0, -20, 0) );
+candle.position.add( new THREE.Vector3(0, -16, 0) );
 scene.add( candle );
 
 var light = new THREE.PointLight( 0xdfebff, 1 );
-light.position.set( 0, 20, 0 );
+light.position.set( 0, 0, 0 );
 light.castShadow = true;
 scene.add( light );
 
@@ -56,7 +56,7 @@ var spriteMaterial = new THREE.SpriteMaterial( {
 });
 var glow = new THREE.Sprite( spriteMaterial );
 glow.scale.set(20, 20, 1.0);
-glow.position.set(0, -6, 10);
+glow.position.set(0, 0, 10);
 scene.add(glow);
 
 // Moths
