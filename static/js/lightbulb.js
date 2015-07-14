@@ -156,12 +156,13 @@ Moth.prototype.create_mesh = function() {
     v(  0.0,  1.5,  0.000001); var head_bak = 1;
     v(  0.0, -1.5, -0.000001); var tail_frn = 2;
     v(  0.0, -1.5,  0.000001); var tail_bak = 3;
-    v( -5.0,  3.0,  0.0);      var top_left = 4;
-    v( -4.0, -1.0,  0.0);      var mid_left = 5;
-    v( -4.5, -2.5,  0.0);      var bot_left = 6;
-    v(  5.0,  3.0,  0.0);      var top_rght = 7;
-    v(  4.0, -1.0,  0.0);      var mid_rght = 8;
-    v(  4.5, -2.5,  0.0);      var bot_rght = 9;
+
+    v( -4.2,  3.0,  0.0);      var top_left = 4;
+    v( -3.2, -0.5,  0.0);      var mid_left = 5;
+    v( -3.7, -2.5,  0.0);      var bot_left = 6;
+    v(  4.2,  3.0,  0.0);      var top_rght = 7;
+    v(  3.2, -0.5,  0.0);      var mid_rght = 8;
+    v(  3.7, -2.5,  0.0);      var bot_rght = 9;
 
     // Back left wing
     f( head_bak, top_left, mid_left );
