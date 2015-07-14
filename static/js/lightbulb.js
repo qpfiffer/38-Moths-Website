@@ -95,10 +95,17 @@ Moth.prototype.update = function() {
     cur_quat.normalize();
     this.object.setRotationFromQuaternion(cur_quat);
 
-    // randomly change target heading
-    var rand = function() { return (-Math.random() + 0.5) / 2 };
-    this.target_heading.add( new THREE.Vector3( rand(), rand(), rand() ) );
-    this.target_heading.normalize();
+    distance = this.object.position.distanceTo( light.position );
+    if ( distance > 85 ) {
+      light_dir = new THREE.Vector3().subVectors( light.position, this.object.position );
+      this.target_heading = light_dir;
+    } else {
+      // randomly change target heading
+      var rand = function() { return (-Math.random() + 0.5) / 2 };
+      this.target_heading.add( new THREE.Vector3( rand(), rand(), rand() ) );
+      this.target_heading.normalize();
+    }
+
 }
 
 
