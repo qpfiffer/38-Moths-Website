@@ -103,6 +103,8 @@ Moth.prototype.remove = function() {
 
 Moth.prototype.display_velocity = function() {
     this.object.remove( this.velocity_line );
+    if (!settings.displayVelocity) { return };
+
     var material = new THREE.LineBasicMaterial( { color: 0x00ff00 } );
     var geometry = new THREE.Geometry();
 
@@ -117,6 +119,8 @@ Moth.prototype.display_velocity = function() {
 
 Moth.prototype.display_target = function() {
     this.object.remove( this.target_line );
+    if (!settings.displayTarget) { return };
+
     var material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
     var geometry = new THREE.Geometry();
 
