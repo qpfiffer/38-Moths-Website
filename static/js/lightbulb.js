@@ -19,12 +19,14 @@ function webglAvailable() {
 
 // DAT GUI
 var settings = {
-    moths: 38
+    moths: 38,
+    displayVelocity: false,
+    displayTarget: false
 };
 
 var gui = new dat.GUI();
 
-num_moths = gui.add(settings, 'moths', 0, 38).step(1);
+var num_moths = gui.add(settings, 'moths', 0, 38).step(1);
 num_moths.onChange(function(value) {
     var diff = value - moths.length;
     if (diff > 0) {
@@ -38,6 +40,8 @@ num_moths.onChange(function(value) {
     }
 });
 
+gui.add(settings, 'displayVelocity');
+gui.add(settings, 'displayTarget');
 
 // Renderer
 if ( webglAvailable() ) {
@@ -94,14 +98,55 @@ var Moth = function() {
 }
 
 Moth.prototype.remove = function() {
-    scene.remove(this.object);
+    scene.remove( this.object );
+}
+
+Moth.prototype.display_velocity = function() {
+    this.object.remove( this.velocity_line );
+    var material = new THREE.LineBasicMaterial( { color: 0x00ff00 } );
+    var geometry = new THREE.Geometry();
+
+    geometry.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
+    this.velocity.setLength( 10 );
+    geometry.vertices.push( this.velocity.clone() );
+    this.velocity.normalize();
+
+    this.velocity_line = new THREE.Line( geometry, material );
+    this.object.add( this.velocity_line );
+}
+
+Moth.prototype.display_target = function() {
+    this.object.remove( this.target_line );
+    var material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+    var geometry = new THREE.Geometry();
+
+    geometry.vertices.push( new THREE.Vector3( 0, 0, 0 ) );
+    this.target_heading.setLength( 10 );
+    geometry.vertices.push( this.target_heading.clone() );
+    this.target_heading.normalize();
+
+    this.target_line = new THREE.Line( geometry, material );
+    this.object.add( this.target_line );
+}
+
+Moth.prototype.rotate = function( rot_quat ) {
+
+    // rotate model
+    var cur_quat = this.object.quaternion;
+    cur_quat.multiplyQuaternions( rot_quat, cur_quat );
+    cur_quat.normalize();
+    this.object.setRotationFromQuaternion( cur_quat );
+
+    // rotate velocity vector
+    this.velocity.applyQuaternion( rot_quat );
+    this.velocity.normalize();
 }
 
 Moth.prototype.update = function() {
     // move
     this.velocity.normalize();
-    this.velocity.multiplyScalar(1);  // Set the "speed"
-    this.object.position.add(this.velocity);
+    this.velocity.multiplyScalar( 0.1 );  // Set the "speed"
+    this.object.position.add( this.velocity );
 
     // flap
     this.flap();
@@ -110,39 +155,16 @@ Moth.prototype.update = function() {
     var rot_quat = new THREE.Quaternion();
     var axis = new THREE.Vector3()
     axis.crossVectors( this.velocity, this.target_heading );
-    rot_quat.setFromAxisAngle( axis, 0.01 );
+    rot_quat.setFromAxisAngle( axis, 0.05 );
 
-    // rotate velocity
-    this.velocity.applyQuaternion( rot_quat );
+    // rotate
+    this.rotate( rot_quat );
 
-    // rotate model
-    cur_quat = this.object.quaternion;
-    cur_quat.multiplyQuaternions( rot_quat, cur_quat );
-    cur_quat.normalize();
-    this.object.setRotationFromQuaternion(cur_quat);
+    var rand = function() { return (-Math.random() + 0.5) / 2 };
+    this.target_heading.add( new THREE.Vector3( rand(), rand(), rand() ) );
 
-    distance = this.object.position.distanceTo( light.position );
-    if ( distance > 85 ) {
-      light_dir = new THREE.Vector3().subVectors( light.position, this.object.position );
-      this.target_heading = light_dir;
-
-    } else {
-      light_dir = new THREE.Vector3().subVectors( light.position, this.object.position );
-      angle = this.velocity.angleTo( light_dir );
-
-      // track light
-      if ( angle < (Math.PI / 2) && distance > 30 ) {
-        axis = new THREE.Vector3().crossVectors( this.velocity, light_dir );
-        rot_quat.setFromAxisAngle( axis, (Math.PI / 2) - angle );
-        this.target_heading.applyQuaternion( rot_quat );
-
-      // randomly change target heading
-      } else {
-        var rand = function() { return (-Math.random() + 0.5) / 2 };
-        this.target_heading.add( new THREE.Vector3( rand(), Math.abs(rand()), rand() ) );
-        this.target_heading.normalize();
-      }
-    }
+    if (settings.displayVelocity) { this.display_velocity() };
+    if (settings.displayTarget) { this.display_target() };
 }
 
 Moth.prototype.flap = function() {
@@ -173,6 +195,8 @@ Moth.prototype.flap = function() {
 }
 
 Moth.prototype.create_mesh = function() {
+
+    // Moth body mesh
     var geometry = new THREE.Geometry();
     var material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
 
@@ -220,10 +244,10 @@ Moth.prototype.create_mesh = function() {
     f( head_frn, mid_rght, tail_frn );
     f( tail_frn, mid_rght, bot_rght );
 
-    geometry.computeFaceNormals();
+    geometry.computeFaceNormals();  // so the light knows how to hit the faces
     geometry.dynamic = true;  // allows flapping
-    this.object = new THREE.Mesh( geometry, material );
-    scene.add(this.object);
+    this.object =  new THREE.Mesh( geometry, material );
+    scene.add( this.object );
 }
 
 var moths = [];
