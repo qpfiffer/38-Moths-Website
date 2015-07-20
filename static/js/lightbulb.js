@@ -134,16 +134,16 @@ Moth.prototype.display_target = function() {
 }
 
 Moth.prototype.rotate = function( rot_quat ) {
-
-    // rotate model
-    var cur_quat = this.object.quaternion;
-    cur_quat.multiplyQuaternions( rot_quat, cur_quat );
-    cur_quat.normalize();
-    this.object.setRotationFromQuaternion( cur_quat );
-
     // rotate velocity vector
     this.velocity.applyQuaternion( rot_quat );
     this.velocity.normalize();
+
+    // rotate model to face velocity
+    var up = new THREE.Vector3( 0, 1, 0 );  // The model was made facing up
+    var quaternion = new THREE.Quaternion();
+    quaternion.setFromUnitVectors( up, this.velocity );
+    this.object.rotation = null;
+    this.object.quaternion.copy( quaternion.clone() );
 }
 
 Moth.prototype.update = function() {
@@ -151,9 +151,10 @@ Moth.prototype.update = function() {
     this.velocity.normalize();
     this.velocity.multiplyScalar( 0.1 );  // Set the "speed"
     this.object.position.add( this.velocity );
+    this.velocity.normalize();
 
     // flap
-    this.flap();
+    //this.flap();
 
     // calculate turn angle to target heading
     var rot_quat = new THREE.Quaternion();
@@ -167,8 +168,8 @@ Moth.prototype.update = function() {
     var rand = function() { return (-Math.random() + 0.5) / 2 };
     this.target_heading.add( new THREE.Vector3( rand(), rand(), rand() ) );
 
-    if (settings.displayVelocity) { this.display_velocity() };
-    if (settings.displayTarget) { this.display_target() };
+    this.display_velocity();
+    this.display_target();
 }
 
 Moth.prototype.flap = function() {
