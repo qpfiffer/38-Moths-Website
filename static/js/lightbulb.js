@@ -17,6 +17,28 @@ function webglAvailable() {
     }
 }
 
+// DAT GUI
+var settings = {
+    moths: 38
+};
+
+var gui = new dat.GUI();
+
+num_moths = gui.add(settings, 'moths', 0, 38).step(1);
+num_moths.onChange(function(value) {
+    var diff = value - moths.length;
+    if (diff > 0) {
+        for (var i = 0; i < diff; i++) {
+            moths.push(new Moth());
+        }
+    } else if (diff < 0) {
+        for (var i = 0; i > diff; i--) {
+            moths.shift().remove();
+        }
+    }
+});
+
+
 // Renderer
 if ( webglAvailable() ) {
     renderer = new THREE.WebGLRenderer({"canvas": canvas});
@@ -69,6 +91,10 @@ var Moth = function() {
     this.object.position.set(0, 0, 0);
     this.phase = Math.random();
     this.flap_angle = Math.sin( Math.PI ) * ( Math.PI / 2 );
+}
+
+Moth.prototype.remove = function() {
+    scene.remove(this.object);
 }
 
 Moth.prototype.update = function() {
