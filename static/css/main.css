@@ -113,6 +113,10 @@ header ul li, footer ul li {
     background-color: #FFFF80;
 }
 
+#feature_table td.purple {
+    background-color: #B19CD9;
+}
+
 .caveat {
     font-weight: normal;
     font-size: 12px;
