@@ -25,6 +25,7 @@ xXx CONTENT xXx
 					<th>Static Site Generator (Python)</th>
 					<th><a href="https://github.com/qpfiffer/shithouse.tv">shithouse.tv</a> variant (Lua)</th>
 					<th><a href="https://github.com/qpfiffer/38-Moths/blob/master/include/greshunkel.h">38-Moths</a> Official (C)</th>
+					<th><a href="https://www.npmjs.com/package/greshunkel">Node.js</a> Port (Javascript)</th>
 				</tr>
 
 				<tr>
@@ -32,13 +33,19 @@ xXx CONTENT xXx
 					<td class="yellow"><code>xXx @VARIABLE_NAME xXx</code><a href="#caveat1" class="caveat">*</a></td>
 					<td class="yellow"><code>xXx VARIABLE_NAME xXx</code><a href="#caveat2" class="caveat">**</a></td>
 					<td class="green"><code>xXx @VARIABLE_NAME xXx</code></td>
+					<td class="green"><code>xXx @VARIABLE_NAME xXx</code></td>
 				</tr>
 
 				<tr>
 					<td>Arrays/Loops</td>
-					<td class="yellow"><code><pre>xXx LOOP i items xXx ... xXx BBL xXx</pre></code><a href="#caveat3" class="caveat">***</a></td>
+					<td class="yellow"><code><pre>xXx LOOP i items xXx
+...
+xXx BBL xXx</pre></code><a href="#caveat3" class="caveat">***</a></td>
 					<td class="red"></td>
-					<td class="yellow"><code><pre>xXx LOOP i items xXx ... xXx BBL xXx</pre></code><a href="#caveat5" class="caveat">*****</a></td>
+					<td class="yellow"><code><pre>xXx LOOP i items xXx
+...
+xXx BBL xXx</pre></code><a href="#caveat5" class="caveat">*****</a></td>
+					<td class="red"></td>
 				</tr>
 
 				<tr>
@@ -46,6 +53,7 @@ xXx CONTENT xXx
 					<td class="red"></td>
 					<td class="green"><code>yYy filter_function ... yYy</code></td>
 					<td class="yellow"><code>XxX filter_func ... XxX</code><a href="#caveat4" class="caveat">****</a></td>
+					<td class="red"></td>
 				</tr>
 
 				<tr>
@@ -53,11 +61,15 @@ xXx CONTENT xXx
 					<td class="green"><code>xXx PARENT=templates/base.html xXx</code></td>
 					<td class="red"></td>
 					<td class="red"></td>
+					<td class="green"><code>xXx PARENT=_layouts/single xXx</code></td>
 				</tr>
 
 				<tr>
 					<td>Blocks</td>
-					<td class="green"><code><pre>xXx BLOCK_NAME xXx ... xXx TTYL xXx</code></td>
+					<td class="green"><code><pre>xXx BLOCK_NAME xXx
+...
+xXx TTYL xXx</code></td>
+					<td class="red"></td>
 					<td class="red"></td>
 					<td class="red"></td>
 				</tr>
@@ -67,6 +79,7 @@ xXx CONTENT xXx
 					<td class="red"></td>
 					<td class="red"></td>
 					<td class="yellow">Planned.</td>
+					<td class="red"></td>
 				</tr>
 
 				<tr>
@@ -74,11 +87,13 @@ xXx CONTENT xXx
 					<td class="green"><code>xXx sub_object$name xXx</code></td>
 					<td class="red"></td>
 					<td class="green"><code>xXx @sub_object.name xXx</code></td>
+					<td class="red"></td>
 				</tr>
 
 				<tr>
 					<td>Array Indexing</td>
 					<td class="green"><code>xXx sub_object$0 xXx</code></td>
+					<td class="red"></td>
 					<td class="red"></td>
 					<td class="red"></td>
 				</tr>
@@ -88,6 +103,7 @@ xXx CONTENT xXx
 					<td class="yellow"><code><pre>xXx LOOP param sub_object$params xXx</pre></code><a href="#caveat6" class="caveat">******</a></td>
 					<td class="red"></td>
 					<td class="red"></td>
+					<td class="red"></td>
 				</tr>
 
 				<tr>
@@ -95,6 +111,7 @@ xXx CONTENT xXx
 					<td class="red"></td>
 					<td class="green"><code><pre>yYy unless [not] MUSIC_SRC yYy</pre></code></td>
 					<td class="yellow">Planned.</td>
+					<td class="red"></td>
 				</tr>
 
 				<tr>
@@ -102,6 +119,7 @@ xXx CONTENT xXx
 					<td class="purple">ＳＭＯＫＥ  ＭＥＴＨ</td>
 					<td class="purple">ＨＡＩＬ  ＳＡＴＡＮ</td>
 					<td class="purple">ＷＲＩＴＥ  Ｃ</td>
+					<td class="purple">ＮＯ  ＥＮＤ</td>
 				</tr>
 			</table>
 			<p>Caveats:
