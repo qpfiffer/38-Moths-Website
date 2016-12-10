@@ -165,8 +165,21 @@ Moth.prototype.update = function() {
     // rotate
     this.rotate( rot_quat );
 
-    var rand = function() { return (-Math.random() + 0.5) / 2 };
+    // Adjust target
+    var rand = function() { return (-Math.random() + 0.5) / 1.0 };
     this.target_heading.add( new THREE.Vector3( rand(), rand(), rand() ) );
+    this.target_heading.normalize();
+
+    // Rotate slightly towards center
+    var center = this.object.position.clone();
+    center.multiplyScalar(-1);
+    center.normalize();
+    var unit = new THREE.Quaternion();
+    unit.setFromUnitVectors(center, center);
+    var center_rot = new THREE.Quaternion();
+    center_rot.setFromUnitVectors(this.target_heading, center);
+    unit.slerp(center_rot, 0.025);
+    this.target_heading.applyQuaternion(unit);
 
     this.display_velocity();
     this.display_target();
