@@ -68,12 +68,11 @@ candle.position.add( new THREE.Vector3(0, -16, 0) );
 scene.add( candle );
 
 var light = new THREE.PointLight( 0xdfebff, 1 );
-light.position.set( 0, 0, 0 );
+light.position.set( 0, 5, 0 );
 light.castShadow = true;
 scene.add( light );
 
 var ambi_light = new THREE.AmbientLight( 0x101010 );
-var ambi_light = new THREE.AmbientLight( 0xffffff );
 scene.add( ambi_light );
 
 // Super simple glow effect
