@@ -149,7 +149,7 @@ Moth.prototype.rotate = function( rot_quat ) {
 Moth.prototype.update = function() {
     // move
     this.velocity.normalize();
-    this.velocity.multiplyScalar( 0.1 );  // Set the "speed"
+    this.velocity.multiplyScalar( 0.5 );  // Set the "speed"
     this.object.position.add( this.velocity );
     this.velocity.normalize();
 
