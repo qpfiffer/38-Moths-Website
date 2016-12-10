@@ -154,7 +154,7 @@ Moth.prototype.update = function() {
     this.velocity.normalize();
 
     // flap
-    //this.flap();
+    this.flap();
 
     // calculate turn angle to target heading
     var rot_quat = new THREE.Quaternion();
