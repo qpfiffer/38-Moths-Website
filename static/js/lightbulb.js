@@ -24,24 +24,24 @@ var settings = {
     displayTarget: false
 };
 
-var gui = new dat.GUI();
-
-var num_moths = gui.add(settings, 'moths', 0, 38).step(1);
-num_moths.onChange(function(value) {
-    var diff = value - moths.length;
-    if (diff > 0) {
-        for (var i = 0; i < diff; i++) {
-            moths.push(new Moth());
-        }
-    } else if (diff < 0) {
-        for (var i = 0; i > diff; i--) {
-            moths.shift().remove();
-        }
-    }
-});
-
-gui.add(settings, 'displayVelocity');
-gui.add(settings, 'displayTarget');
+//var gui = new dat.GUI();
+//
+//var num_moths = gui.add(settings, 'moths', 0, 38).step(1);
+//num_moths.onChange(function(value) {
+//    var diff = value - moths.length;
+//    if (diff > 0) {
+//        for (var i = 0; i < diff; i++) {
+//            moths.push(new Moth());
+//        }
+//    } else if (diff < 0) {
+//        for (var i = 0; i > diff; i--) {
+//            moths.shift().remove();
+//        }
+//    }
+//});
+//
+//gui.add(settings, 'displayVelocity');
+//gui.add(settings, 'displayTarget');
 
 // Renderer
 if ( webglAvailable() ) {
