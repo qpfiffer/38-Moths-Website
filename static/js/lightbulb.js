@@ -190,7 +190,7 @@ Moth.prototype.flap = function() {
     var old_phase = this.phase;
     var old_angle = this.flap_angle;
 
-    this.phase = ( this.phase + 0.5 ) % ( Math.PI * 2 );
+    this.phase = ( this.phase + 0.3 ) % ( Math.PI * 2 );
     this.flap_angle = Math.sin( this.phase ) * ( (Math.PI / 2) - 0.1 );
 
     var angle_delta = this.flap_angle - old_angle;
