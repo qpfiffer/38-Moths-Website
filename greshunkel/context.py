@@ -122,7 +122,9 @@ def build_doc_context(default_context):
         print "Checking out {}".format(version)
         cmd = "cd 38-Moths && git checkout {} &> /dev/null".format(version)
         subprocess.check_output(cmd, shell=True)
-        headers = ["38-moths.h", "server.h", "grengine.h", "greshunkel.h", "utils.h", "vector.h"]
+        headers = ["38-moths.h", "server.h", "logging.h", "parse.h",
+                   "types.h", "grengine.h", "greshunkel.h", "utils.h",
+                   "vector.h"]
         headers = map(lambda x: "{}/{}".format(INCLUDE_DIR, x), headers)
         version_context = {}
         for header_file in headers:
