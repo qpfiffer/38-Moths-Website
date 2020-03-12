@@ -2,13 +2,13 @@
 This is ported from the original PHP version here:
 https://gist.github.com/jbroadway/2836900
 """
-import re
+import html, re
 
 class Slimdown(object):
     def __init__(self):
         self.rules = [
             (r'\n\*(.*)' ,  self.ul_list),
-            (r'````?([^\n]*\n)([^`]*)````?' ,  r'<pre class="language-\1"><code>\2</code></pre>'),
+            (r'````?([^\n]*\n+)([^`]*)\n+````?' ,  self.code_block),
             (r'`([^`]*)`' ,  r'<code>\1</code>'),
             (r'\[([^\[]+)\]\(([^\)]+)\)' ,  r'<a href=\2>\1</a>'),
             (r'\n(#+)(.*)',  self.header),
@@ -34,6 +34,12 @@ class Slimdown(object):
     def ul_list(self, match):
         item = match.groups()[0]
         return "\n<ul><li>{}</li></ul>".format(item.strip())
+
+    def code_block(self, match):
+        formatted = '<pre class="language-{language}"><code>{code}</code></pre>'.format(
+                language=match.group(1).strip(),
+                code=html.escape(match.group(2)))
+        return formatted
 
     def ol_list(self, match):
         item = match.group(0)

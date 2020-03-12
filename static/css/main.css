@@ -1,129 +1,176 @@
+/* vim: set ts=4 sw=4 noet : */
 html {
-    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 body {
-    font-size: 16px;
+	font-size: 16px;
 }
 a {
 }
 a:visited {
 }
-#lightbulb-canvas {
-    position: absolute;
-    display: inline;
-    width: 100%;
-    height: 500px;
-    z-index: -10;
+#main-container {
+	width: 1140px;
 }
 #lander {
-    padding-bottom: 150px;
-    height: 500px;
+	padding-bottom: 150px;
+	margin: 0 auto;
+	display: block;
+	left: 0; right: 0; top: 0; bottom: 0;
+}
+#lightbulb-parent {
+	height: 500px;
+}
+#lightbulb-canvas {
+	display: block;
+	width: 100%;
+	height: 500px;
+	z-index: -10;
 }
 #lander .content {
-    padding-top: 150px;
-    color: gray;
+	padding-top: 6em;
+}
+#lander h1 {
+	display: inline;
+	margin-right: 2em;
+	text-align: center;
 }
 pre {
-    font-size: 14px;
+	font-size: 14px;
 }
 header {
-    padding-bottom: 1.5em;
+	padding-bottom: 1.5em;
 }
 .pull-right {
-    text-align: right;
+	text-align: right;
 }
 footer {
-    font-size: 14px;
+	font-size: 14px;
 }
 header ul, footer ul {
-    list-style: none;
+	list-style: none;
 }
 header ul li, footer ul li {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 1em;
-    margin-right: 1em;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 1em;
+	margin-right: 1em;
 }
-#main-container {
-}
-.highlight .hll { background-color: #ffffcc }
-.highlight .c { font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { font-weight: bold } /* Keyword */
-.highlight .cm { font-style: italic } /* Comment.Multiline */
-.highlight .c1 { font-style: italic } /* Comment.Single */
-.highlight .cs { font-style: italic } /* Comment.Special */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gh { font-weight: bold } /* Generic.Heading */
-.highlight .gp { font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { font-weight: bold } /* Generic.Subheading */
-.highlight .kc { font-weight: bold } /* Keyword.Constant */
-.highlight .kd { font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { font-weight: bold } /* Keyword.Namespace */
-.highlight .kr { font-weight: bold } /* Keyword.Reserved */
-.highlight .s { font-style: italic } /* Literal.String */
-.highlight .nc { font-weight: bold } /* Name.Class */
-.highlight .ni { font-weight: bold } /* Name.Entity */
-.highlight .ne { font-weight: bold } /* Name.Exception */
-.highlight .nn { font-weight: bold } /* Name.Namespace */
-.highlight .nt { font-weight: bold } /* Name.Tag */
-.highlight .ow { font-weight: bold } /* Operator.Word */
-.highlight .sb { font-style: italic } /* Literal.String.Backtick */
-.highlight .sc { font-style: italic } /* Literal.String.Char */
-.highlight .sd { font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { font-style: italic } /* Literal.String.Double */
-.highlight .se { font-weight: bold; font-style: italic } /* Literal.String.Escape */
-.highlight .sh { font-style: italic } /* Literal.String.Heredoc */
-.highlight .si { font-weight: bold; font-style: italic } /* Literal.String.Interpol */
-.highlight .sx { font-style: italic } /* Literal.String.Other */
-.highlight .sr { font-style: italic } /* Literal.String.Regex */
-.highlight .s1 { font-style: italic } /* Literal.String.Single */
-.highlight .ss { font-style: italic } /* Literal.String.Symbol */
 
 #feature_table code {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 #feature_table tr {
-    border: solid 1px #FFF;
+	border: solid 1px #FFF;
 }
 
 #feature_table tr td {
-    padding-top: 6px;
-    padding-bottom: 6px;
-    padding-left: 4px;
-    padding-right: 4px;
-    text-align: center;
-    width: 275px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 4px;
+	padding-right: 4px;
+	text-align: center;
+	width: 275px;
 }
 
 #feature_table tr td:first-child {
-    font-weight: normal;
+	font-weight: normal;
 }
 
 #feature_table td.green {
-    background-color: #A0FFA0;
+	background-color: #A0FFA0;
 }
 
 #feature_table td.red {
-    background-color: #FF9090;
+	background-color: #FF9090;
 }
 
 #feature_table td.yellow {
-    background-color: #FFFF80;
+	background-color: #FFFF80;
 }
 
 #feature_table td.purple {
-    background-color: #B19CD9;
+	background-color: #B19CD9;
 }
 
 .caveat {
-    font-weight: normal;
-    font-size: 12px;
+	font-weight: normal;
+	font-size: 12px;
 }
 
 .caveat:target {
-    color: red;
-    text-decoration: underline;
+	color: red;
+	text-decoration: underline;
+}
+code {
+	font-family: Consolas,monaco,"Ubuntu Mono",courier,monospace!important;
+	font-size: .95rem;
+	line-height: .95rem;
+	padding: 1px 3px;
+	-webkit-font-variant-ligatures: none;
+	font-variant-ligatures: none;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	-webkit-tab-size: 4;
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	border-radius: 3px;
+}
+pre > code {
+	border: none;
+	border-radius: none;
+}
+pre {
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-top: 4px;
+	padding-bottom: 2px;
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	border-radius: 3px;
+}
+.big_btn {
+	display: inline-block;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 1em;
+	border: 2px solid black;
+	color: black;
+	border-radius: 3px;
+	text-align: center;
+	text-decoration: none;
+}
+.big_btn:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+.med_btn {
+	display: inline-block;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 0.5em;
+	border: 2px solid black;
+	color: black;
+	border-radius: 3px;
+	text-align: center;
+	text-decoration: none;
+}
+.med_btn:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+span.version_string:before {
+	content: "v";
+}
+span.version_string {
+	display: inline-block;
+	background: rgba(0, 0, 0, 0.1);
+	background-color: rgb(0, 0, 0);
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top:0.25em;
+	padding-bottom:0.25em;
+	border: 2px solid black;
+	color: white;
+	border-radius: 3px;
+	text-align: center;
+	text-decoration: none;
 }

@@ -285,7 +285,7 @@ function update() {
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize(){
-    var parent_ele = document.getElementById("lander");
+    var parent_ele = document.getElementById("lightbulb-parent");
     canvas.width = parent_ele.offsetWidth;
     canvas.height = parent_ele.offsetHeight;
 

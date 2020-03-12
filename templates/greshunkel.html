@@ -1,6 +1,6 @@
 <!-- vim: set ts=4 sw=4 noet :
 -->
-xXx PARENT=templates/base.html xXx
+xXx PARENT=templates/nav_base.html xXx
 xXx TITLE xXx
 	Greshunkel
 xXx TTYL xXx
@@ -17,15 +17,18 @@ xXx CONTENT xXx
 			</pre>
 			<pre>lykkin | xbox syntax is the only reason i use greshunkel over other templating languages
 			</pre>
+			<p>GRESHUNKEL is a templating language. And a static site generator. It's actually three 
+			   different templating languages. I guess technically theres a fourth version as well 
+			   which we use <a href="https://github.com/qpfiffer/38-Moths/blob/master/include/greshunkel.h">for docstring generation.</a> 
+			   It's complicated. Here, just have this table comparing the features of each implementation:</p>
+			<p>When you're done looking at it and being confused, you can check out specifics and more in-depth documentation over <a href="/docs/xXx @EXTRACTED_VERSION xXx/xXx @DEFAULT_LANGUAGE xXx/documentation.html#greshunkel">here.</a></p>
 			xXx RAW_IMA_GIVE_IT_TO_YA xXx
-			<p>GRESHUNKEL is a templating language. And a static site generator. It's actually three different templating languages. I guess technically theres a fourth version as well which we use <a href="https://github.com/infoforcefeed/OlegDB/blob/master/include/oleg.h">for docstring generation.</a> It's complicated. Here, just have this table comparing the features of each implementation:</p>
 			<table id="feature_table">
 				<tr>
 					<th></th>
 					<th>Static Site Generator (Python)</th>
 					<th><a href="https://github.com/qpfiffer/shithouse.tv">shithouse.tv</a> variant (Lua)</th>
 					<th><a href="https://github.com/qpfiffer/38-Moths/blob/master/include/greshunkel.h">38-Moths</a> Official (C)</th>
-					<th><a href="https://www.npmjs.com/package/greshunkel">Node.js</a> Port (Javascript)</th>
 				</tr>
 
 				<tr>
@@ -33,19 +36,17 @@ xXx CONTENT xXx
 					<td class="yellow"><code>xXx @VARIABLE_NAME xXx</code><a href="#caveat1" class="caveat">*</a></td>
 					<td class="yellow"><code>xXx VARIABLE_NAME xXx</code><a href="#caveat2" class="caveat">**</a></td>
 					<td class="green"><code>xXx @VARIABLE_NAME xXx</code></td>
-					<td class="green"><code>xXx @VARIABLE_NAME xXx</code></td>
 				</tr>
 
 				<tr>
 					<td>Arrays/Loops</td>
-					<td class="yellow"><code><pre>xXx LOOP i items xXx
+					<td class="yellow"><pre>xXx LOOP i items xXx
 ...
-xXx BBL xXx</pre></code><a href="#caveat3" class="caveat">***</a></td>
+xXx BBL xXx</pre><a href="#caveat3" class="caveat">***</a></td>
 					<td class="red"></td>
-					<td class="yellow"><code><pre>xXx LOOP i items xXx
+					<td class="yellow"><pre>xXx LOOP i items xXx
 ...
-xXx BBL xXx</pre></code><a href="#caveat5" class="caveat">*****</a></td>
-					<td class="red"></td>
+xXx BBL xXx</pre><a href="#caveat5" class="caveat">*****</a></td>
 				</tr>
 
 				<tr>
@@ -53,7 +54,6 @@ xXx BBL xXx</pre></code><a href="#caveat5" class="caveat">*****</a></td>
 					<td class="red"></td>
 					<td class="green"><code>yYy filter_function ... yYy</code></td>
 					<td class="yellow"><code>XxX filter_func ... XxX</code><a href="#caveat4" class="caveat">****</a></td>
-					<td class="red"></td>
 				</tr>
 
 				<tr>
@@ -61,15 +61,13 @@ xXx BBL xXx</pre></code><a href="#caveat5" class="caveat">*****</a></td>
 					<td class="green"><code>xXx PARENT=templates/base.html xXx</code></td>
 					<td class="red"></td>
 					<td class="red"></td>
-					<td class="green"><code>xXx PARENT=_layouts/single xXx</code></td>
 				</tr>
 
 				<tr>
 					<td>Blocks</td>
-					<td class="green"><code><pre>xXx BLOCK_NAME xXx
+					<td class="green"><pre>xXx BLOCK_NAME xXx
 ...
-xXx TTYL xXx</code></td>
-					<td class="red"></td>
+xXx TTYL xXx</pre></td>
 					<td class="red"></td>
 					<td class="red"></td>
 				</tr>
@@ -78,8 +76,7 @@ xXx TTYL xXx</code></td>
 					<td>Partial templates (inclusion)</td>
 					<td class="red"></td>
 					<td class="red"></td>
-					<td class="green">xXx SCREAM _include.html xXx</td>
-					<td class="red"></td>
+					<td class="green"><pre>xXx SCREAM _include.html xXx</pre></td>
 				</tr>
 
 				<tr>
@@ -87,7 +84,6 @@ xXx TTYL xXx</code></td>
 					<td class="green"><code>xXx sub_object$name xXx</code></td>
 					<td class="red"></td>
 					<td class="green"><code>xXx @sub_object.name xXx</code></td>
-					<td class="red"></td>
 				</tr>
 
 				<tr>
@@ -95,13 +91,11 @@ xXx TTYL xXx</code></td>
 					<td class="green"><code>xXx sub_object$0 xXx</code></td>
 					<td class="red"></td>
 					<td class="red"></td>
-					<td class="red"></td>
 				</tr>
 
 				<tr>
 					<td>Looping through sub-objects</td>
-					<td class="yellow"><code><pre>xXx LOOP param sub_object$params xXx</pre></code><a href="#caveat6" class="caveat">******</a></td>
-					<td class="red"></td>
+					<td class="yellow"><pre>xXx LOOP param sub_object$params xXx</pre><a href="#caveat6" class="caveat">******</a></td>
 					<td class="red"></td>
 					<td class="red"></td>
 				</tr>
@@ -109,20 +103,12 @@ xXx TTYL xXx</code></td>
 				<tr>
 					<td>"Unless" operator</td>
 					<td class="red"></td>
-					<td class="green"><code><pre>yYy unless [not] MUSIC_SRC yYy</pre></code></td>
-					<td class="green">xXx UNLESSS &lt;NOT&gt; @variable xXx
+					<td class="green"><pre>yYy unless [not] MUSIC_SRC yYy</pre></td>
+					<td class="green"><pre>xXx UNLESSS &lt;NOT&gt; @variable xXx
 ...
-xXx ENDLESS xXx </td>
-					<td class="red"></td>
+xXx ENDLESS xXx</pre></td>
 				</tr>
 
-				<tr>
-					<td>Ｄｅａｔｈ  Ｌｏｏｐｓ</td>
-					<td class="purple">ＳＭＯＫＥ  ＭＥＴＨ</td>
-					<td class="purple">ＨＡＩＬ  ＳＡＴＡＮ</td>
-					<td class="purple">ＷＲＩＴＥ  Ｃ</td>
-					<td class="purple">ＮＯ  ＥＮＤ</td>
-				</tr>
 			</table>
 			<p>Caveats:
 				<ul>

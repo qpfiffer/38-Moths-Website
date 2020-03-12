@@ -115,11 +115,11 @@ def build_doc_context(default_context):
     output = subprocess.check_output("cd 38-Moths && git tag --list", shell=True)
     default_context['docs'] = {}
     default_context['ALL_VERSIONS'] = []
-    versions = sorted(output.strip().split("\n"))
+    versions = sorted(output.decode().strip().split("\n"))
     versions.append("master")
 
     for version in versions:
-        print "Checking out {}".format(version)
+        print("Checking out {}".format(version))
         cmd = "cd 38-Moths && git checkout {} &> /dev/null".format(version)
         subprocess.check_output(cmd, shell=True)
         headers = ["38-moths.h", "server.h", "logging.h", "parse.h",
@@ -131,7 +131,7 @@ def build_doc_context(default_context):
             try:
                 oleg_header = open(header_file)
             except IOError as e:
-                print e
+                print(e)
                 continue
 
             docstring_special = ["DEFINE", "ENUM", "STRUCT", "DESCRIPTION",
